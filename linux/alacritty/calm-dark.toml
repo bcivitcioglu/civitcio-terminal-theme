@@ -1,0 +1,33 @@
+# civitcio Calm-Dark for Alacritty — drop into ~/.config/alacritty/themes/calm-dark.toml
+# then add `import = ["~/.config/alacritty/themes/calm-dark.toml"]` to alacritty.toml
+[colors.primary]
+background = "#1c1917"
+foreground = "#e7e5e4"
+
+[colors.cursor]
+text = "#1c1917"
+cursor = "#d6d3d1"
+
+[colors.selection]
+text = "#e7e5e4"
+background = "#78716c"
+
+[colors.normal]
+black = "#292524"
+red = "#bc9b8d"
+green = "#87a087"
+yellow = "#d6d3d1"
+blue = "#a8a29e"
+magenta = "#a8a29e"
+cyan = "#e7e5e4"
+white = "#e7e5e4"
+
+[colors.bright]
+black = "#57534e"
+red = "#d8bcaf"
+green = "#a8c4a8"
+yellow = "#e7e5e4"
+blue = "#d6d3d1"
+magenta = "#d6d3d1"
+cyan = "#fafaf9"
+white = "#ffffff"

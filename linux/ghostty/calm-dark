@@ -1,0 +1,23 @@
+# civitcio Calm-Dark for Ghostty — drop into ~/.config/ghostty/themes/calm-dark
+# then set `theme = calm-dark` in ~/.config/ghostty/config
+background = 1c1917
+foreground = e7e5e4
+cursor-color = d6d3d1
+selection-background = 78716c
+selection-foreground = e7e5e4
+palette = 0=#292524
+palette = 1=#bc9b8d
+palette = 2=#87a087
+palette = 3=#d6d3d1
+palette = 4=#a8a29e
+palette = 5=#a8a29e
+palette = 6=#e7e5e4
+palette = 7=#e7e5e4
+palette = 8=#57534e
+palette = 9=#d8bcaf
+palette = 10=#a8c4a8
+palette = 11=#e7e5e4
+palette = 12=#d6d3d1
+palette = 13=#d6d3d1
+palette = 14=#fafaf9
+palette = 15=#ffffff
