@@ -1,9 +1,10 @@
 #!/usr/bin/env zsh
 # demo script for Calm-Dark (white pills on warm black)
-export STARSHIP_CONFIG="/Users/burak/civitcio-terminal-theme/demo/starship-dark.toml"
+_repo="${0:A:h}/.."
+export STARSHIP_CONFIG="$_repo/demo/starship-dark.toml"
 export TERM="xterm-256color"
 export CLICOLOR=1
-cd "/Users/burak/civitcio-terminal-theme"
+cd "$_repo"
 print -P "$(starship prompt)"
 print ""
 sleep 0.6
