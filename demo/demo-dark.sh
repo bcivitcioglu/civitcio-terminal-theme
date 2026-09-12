@@ -1,7 +1,16 @@
 #!/usr/bin/env zsh
 # demo script for Calm-Dark (white pills on warm black)
+# usage: zsh demo/demo-dark.sh [--long]
 _repo="${0:A:h}/.."
-export STARSHIP_CONFIG="$_repo/demo/starship-dark.toml"
+_base="$_repo/demo/starship-dark.toml"
+_cfg="$_base"
+if [[ "${1:-}" == "--long" ]]; then
+  # full-width variant: same config with the [fill] module enabled
+  _cfg="$(mktemp /tmp/calm-dark-long.XXXXXX.toml)"
+  sed "/^\[fill\]/,/^disabled = / s/^disabled = .*/disabled = false/" "$_base" > "$_cfg"
+  trap 'rm -f "$_cfg"' EXIT
+fi
+export STARSHIP_CONFIG="$_cfg"
 export TERM="xterm-256color"
 export CLICOLOR=1
 cd "$_repo"

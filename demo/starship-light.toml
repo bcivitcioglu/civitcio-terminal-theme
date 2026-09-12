@@ -209,7 +209,7 @@ format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
 [fill]
 symbol = ' '
 style = "bg:color_bg1"
-disabled = false
+disabled = true
 
 [line_break]
 disabled = false

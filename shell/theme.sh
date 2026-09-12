@@ -11,6 +11,22 @@ _civitcio_palette() {
   return 0
 }
 
+# Width: short bar (default) vs full-width bar (--long).
+# Short = [fill] disabled; long = [fill] enabled (painted bg:color_bg1).
+_civitcio_fill() {
+  # $1 = 'true' (short) | 'false' (full-width)
+  _f="$HOME/.config/starship.toml"
+  [ -f "$_f" ] || return 0
+  if ! grep -q '^\[fill\]' "$_f" 2>/dev/null; then
+    # pre-fill config (e.g. upgraded install): append the block
+    printf '\n[fill]\nsymbol = %s\nstyle = "bg:color_bg1"\ndisabled = %s\n' "' '" "$1" >> "$_f"
+    return 0
+  fi
+  sed -i.bak "/^\[fill\]/,/^disabled = / s/^disabled = .*/disabled = $1/" "$_f" 2>/dev/null
+  rm -f "$_f.bak" 2>/dev/null
+  return 0
+}
+
 _civitcio_is_macos() { [ "$(uname -s)" = "Darwin" ]; }
 
 _civitcio_has_gnome_terminal() {
@@ -44,7 +60,13 @@ _civitcio_alacritty() {
 }
 
 theme-dark() {
+  case "${1:-}" in
+    ""|--short|-s) _fill='true'; _mode='short' ;;
+    --long|-l) _fill='false'; _mode='full-width' ;;
+    *) echo "usage: theme-dark [--short|--long]" >&2; return 1 ;;
+  esac
   _civitcio_palette 'calm_white'
+  _civitcio_fill "$_fill"
   if _civitcio_is_macos; then
     osascript -e 'tell application "Terminal" to set current settings of selected tab of front window to settings set "Calm-Dark"' 2>/dev/null || true
     osascript -e 'tell application "Terminal" to set default settings to settings set "Calm-Dark"' 2>/dev/null || true
@@ -53,11 +75,17 @@ theme-dark() {
   fi
   _civitcio_ghostty 'dark' || true
   _civitcio_alacritty 'dark' || true
-  echo "→ Calm-Dark: dark #1c1917 + starship calm_white"
+  echo "→ Calm-Dark: dark #1c1917 + starship calm_white ($_mode)"
 }
 
 theme-light() {
+  case "${1:-}" in
+    ""|--short|-s) _fill='true'; _mode='short' ;;
+    --long|-l) _fill='false'; _mode='full-width' ;;
+    *) echo "usage: theme-light [--short|--long]" >&2; return 1 ;;
+  esac
   _civitcio_palette 'calm_dark'
+  _civitcio_fill "$_fill"
   if _civitcio_is_macos; then
     osascript -e 'tell application "Terminal" to set current settings of selected tab of front window to settings set "Calm-Light"' 2>/dev/null || true
     osascript -e 'tell application "Terminal" to set default settings to settings set "Calm-Light"' 2>/dev/null || true
@@ -66,5 +94,5 @@ theme-light() {
   fi
   _civitcio_ghostty 'light' || true
   _civitcio_alacritty 'light' || true
-  echo "→ Calm-Light: off-white #fafaf9 + starship calm_dark"
+  echo "→ Calm-Light: off-white #fafaf9 + starship calm_dark ($_mode)"
 }

@@ -1,11 +1,12 @@
 # civitcio-terminal-theme
 
 Calm dual theme for **terminal + [starship](https://starship.rs)** — macOS and Linux.
-Same powerline look, two moods:
+Same powerline look, two moods, two widths:
 
-| Calm-Dark — dark `#1c1917` + white pills | Calm-Light — off-white `#fafaf9` + dark pills |
-| --- | --- |
-| ![Calm-Dark](assets/calm-dark.gif) | ![Calm-Light](assets/calm-light.gif) |
+|  | Short (default) | Full-width (`--long`) |
+| --- | --- | --- |
+| Calm-Dark — dark `#1c1917` + white pills | ![Calm-Dark](assets/calm-dark.gif) | ![Calm-Dark full-width](assets/calm-dark-long.gif) |
+| Calm-Light — off-white `#fafaf9` + dark pills | ![Calm-Light](assets/calm-light.gif) | ![Calm-Light full-width](assets/calm-light-long.gif) |
 
 > GIF backgrounds are approximate (rendered with agg's github-dark/light).
 > The exact terminal colors ship as native profiles (see below).
@@ -20,8 +21,10 @@ Then reload your shell and switch:
 
 ```sh
 exec zsh   # or: exec bash
-theme-dark   # dark #1c1917 + starship calm_white
-theme-light  # off-white #fafaf9 + starship calm_dark
+theme-dark          # dark #1c1917 + starship calm_white (short bar)
+theme-dark --long   # same, full-width bar
+theme-light         # off-white #fafaf9 + starship calm_dark (short bar)
+theme-light --long  # same, full-width bar
 ```
 
 Or clone and run locally:
