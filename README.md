@@ -5,8 +5,8 @@ Same powerline look, two moods, two widths:
 
 |  | Short (default) | Full-width (`--long`) |
 | --- | --- | --- |
-| Calm-Dark — dark `#1c1917` + white pills | ![Calm-Dark](assets/calm-dark.gif) | ![Calm-Dark full-width](assets/calm-dark-long.gif) |
-| Calm-Light — off-white `#fafaf9` + dark pills | ![Calm-Light](assets/calm-light.gif) | ![Calm-Light full-width](assets/calm-light-long.gif) |
+| Calm-Dark — dark `#1c1917` + white pills | ![Calm-Dark](assets/calm-dark-short.gif) | ![Calm-Dark full-width](assets/calm-dark-long.gif) |
+| Calm-Light — off-white `#fafaf9` + dark pills | ![Calm-Light](assets/calm-light-short.gif) | ![Calm-Light full-width](assets/calm-light-long.gif) |
 
 > GIF backgrounds are approximate (rendered with agg's github-dark/light).
 > The exact terminal colors ship as native profiles (see below).

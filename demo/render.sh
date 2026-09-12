@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerate assets/calm-{dark,light}[-long].gif (short + full-width bars)
+# Regenerate assets/calm-{dark,light}{-short,-long}.gif (short + full-width bars)
 # Requires: brew install asciinema agg starship
 # Run from repo root: ./demo/render.sh
 set -euo pipefail
@@ -17,7 +17,7 @@ asciinema rec --overwrite --window-size 100x20 \
 agg --font-dir "$HOME/Library/Fonts" \
   --font-family "JetBrainsMono Nerd Font" --font-size 15 \
   --theme github-dark --idle-time-limit 2 \
-  /tmp/calm-dark.cast assets/calm-dark.gif
+  /tmp/calm-dark.cast assets/calm-dark-short.gif
 
 agg --font-dir "$HOME/Library/Fonts" \
   --font-family "JetBrainsMono Nerd Font" --font-size 15 \
@@ -27,7 +27,7 @@ agg --font-dir "$HOME/Library/Fonts" \
 agg --font-dir "$HOME/Library/Fonts" \
   --font-family "JetBrainsMono Nerd Font" --font-size 15 \
   --theme github-light --idle-time-limit 2 \
-  /tmp/calm-light.cast assets/calm-light.gif
+  /tmp/calm-light.cast assets/calm-light-short.gif
 
 agg --font-dir "$HOME/Library/Fonts" \
   --font-family "JetBrainsMono Nerd Font" --font-size 15 \
