@@ -114,6 +114,25 @@ install_starship() {
   fi
 }
 
+migrate_legacy_inline() {
+  # $1 = rc file. Pre-loader installs defined theme-dark()/theme-light()
+  # inline; those shadow ~/.config/civitcio-theme/theme.sh forever (and never
+  # learned --long). Replace them with the loader so reinstalls heal.
+  _rc="$1"
+  [ -f "$_rc" ] || return 0
+  grep -q '^theme-dark()' "$_rc" 2>/dev/null || return 0
+  grep -q 'civitcio-theme/theme.sh' "$_rc" 2>/dev/null && return 0
+  cp "$_rc" "$_rc.pre-civitcio-migrate.bak" 2>/dev/null || true
+  _tmp="$(mktemp)"
+  sed -e '/^theme-dark()/,/^}/d' -e '/^theme-light()/,/^}/d' "$_rc" > "$_tmp" \
+    && cat "$_tmp" > "$_rc"
+  rm -f "$_tmp"
+  grep -q '^# Calm theme switcher' "$_rc" 2>/dev/null && \
+    sed -i.bak '/^# Calm theme switcher/,+1d' "$_rc" 2>/dev/null || true
+  rm -f "$_rc.bak" 2>/dev/null
+  echo "  migrated legacy inline switcher in $_rc (backup: $_rc.pre-civitcio-migrate.bak)"
+}
+
 install_shell() {
   if [ "$OS" = "darwin" ]; then echo "→ 3/4 shell switcher (theme-dark / theme-light)"; else echo "→ 3/5 shell switcher (theme-dark / theme-light)"; fi
   mkdir -p "$HOME/.config/civitcio-theme"
@@ -121,7 +140,8 @@ install_shell() {
   _loader='[ -f "$HOME/.config/civitcio-theme/theme.sh" ] && . "$HOME/.config/civitcio-theme/theme.sh"'
   if [ "$OS" = "darwin" ]; then
     touch "$HOME/.zshrc"
-    if ! grep -q 'civitcio-theme/theme.sh' "$HOME/.zshrc" 2>/dev/null && ! grep -q 'theme-dark()' "$HOME/.zshrc" 2>/dev/null; then
+    migrate_legacy_inline "$HOME/.zshrc"
+    if ! grep -q 'civitcio-theme/theme.sh' "$HOME/.zshrc" 2>/dev/null; then
       printf '\n# civitcio-terminal-theme\n%s\n' "$_loader" >> "$HOME/.zshrc"
       echo "  loader added to ~/.zshrc"
     else
@@ -134,6 +154,7 @@ install_shell() {
     for _rc in "$HOME/.bashrc" "$HOME/.zshrc"; do
       _shell="$(basename "$_rc" | sed 's/^\.//')"
       touch "$_rc"
+      migrate_legacy_inline "$_rc"
       if ! grep -q 'civitcio-theme/theme.sh' "$_rc" 2>/dev/null; then
         printf '\n# civitcio-terminal-theme\n%s\n' "$_loader" >> "$_rc"
         echo "  loader added to $_rc"
